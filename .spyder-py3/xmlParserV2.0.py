@@ -17,7 +17,7 @@ def getNodeText(node):
 def handleBlockType(block):
     print(block.getAttribute("s"))
 
-#Returns each block and its contents
+#Returns each block and its contents.
 def handleBlocks(blocks):
     for block in blocks:
         handleBlockType(block)
