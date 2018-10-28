@@ -30,7 +30,7 @@ def handleBlocks(blocks):
 def handleLTagParameters(l):
     print(getNodeText(l))
 
-#Parses XML to Python given dom input
+#Parses XML to Python given dom input.
 def parseXML(xml):
     blocks = dom.getElementsByTagName("block")
     handleBlocks(blocks)
