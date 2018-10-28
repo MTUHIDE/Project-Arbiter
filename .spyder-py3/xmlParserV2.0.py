@@ -3,7 +3,7 @@ document = "test3.xml"
 
 dom = xml.dom.minidom.parse(document)
 
-#Examines a node's contents and converts it to a string
+#Examines a node's contents and converts it to a string.
 def getNodeText(node):
 
     nodelist = node.childNodes
