@@ -13,14 +13,21 @@ def getNodeText(node):
             result.append(node.data)
     return ''.join(result)
 
-#Returns a block's attribute
+#Returns a block tag's attribute, aka A block's type
 def handleBlockType(block):
-    print(block.getAttribute("s"))
+    print("Block type: " + block.getAttribute("s"))
+    
+#Returns a variable block's variable name. To be distinguished from regular block types
+def handleVariableBlock(block):
+    print("Variable block: " + block.getAttribute("var"))
 
-#Returns each block and its contents.
+#Returns the contents of each block tag
 def handleBlocks(blocks):
     for block in blocks:
-        handleBlockType(block)
+        if(block.hasAttribute("s")):
+            handleBlockType(block)
+        if(block.hasAttribute("var")):
+            handleVariableBlock(block)
         l = block.getElementsByTagName("l")
         if len(l) > 0:
             for node in l:
@@ -28,11 +35,21 @@ def handleBlocks(blocks):
         
 #Returns text within a tag l
 def handleLTagParameters(l):
-    print(getNodeText(l))
+    print("Parameter: "+ getNodeText(l))
 
+#Returns everything within a "script" tag
+def handleScript(script):
+    handleBlocks(script.getElementsByTagName("block"))
+    
+#Returns everything within a "scripts" tag
+def handleScripts(scripts):
+    for script in scripts:
+        print("<script>")
+        handleScript(script)
+        
 #Parses XML to Python given dom input.
 def parseXML(xml):
-    blocks = dom.getElementsByTagName("block")
-    handleBlocks(blocks)
+    scripts = dom.getElementsByTagName("scripts")
+    handleScripts(scripts)
 
 parseXML(dom)
