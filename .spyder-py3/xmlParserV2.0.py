@@ -15,11 +15,11 @@ def getNodeText(node):
 
 #Returns a block tag's attribute, aka A block's type
 def handleBlockType(block):
-    print("Block type: " + block.getAttribute("s"))
+    print("            Block type: " + block.getAttribute("s"))
     
 #Returns a variable block's variable name. To be distinguished from regular block types
 def handleVariableBlock(block):
-    print("Variable block: " + block.getAttribute("var"))
+    print("            Variable block: " + block.getAttribute("var"))
 
 #Returns the contents of each block tag
 def handleBlocks(blocks):
@@ -35,21 +35,40 @@ def handleBlocks(blocks):
         
 #Returns text within a tag l
 def handleLTagParameters(l):
-    print("Parameter: "+ getNodeText(l))
+    print("               Parameter: "+ getNodeText(l))
 
 #Returns everything within a "script" tag
 def handleScript(script):
+    print("         <Script>")
     handleBlocks(script.getElementsByTagName("block"))
+    print("         </Script>")
     
 #Returns everything within a "scripts" tag
 def handleScripts(scripts):
+    print("      <Scripts>")
     for script in scripts:
-        print("<script>")
         handleScript(script)
+    print("      </Scripts>")
+        
+#Returns everything within a "sprite" tag
+def handleSprite(sprite):
+    print("   <Sprite>")
+    print("      name: " + sprite.getAttribute("name"))
+    print("      id: " + sprite.getAttribute("id"))
+    print("      costume: " + sprite.getAttribute("costume"))
+    handleScripts(sprite.getElementsByTagName("script"))
+    print("   </Sprite>")
+    
+#Returns everything within a "sprites" tag
+def handleSprites(sprites):
+    print("<Sprites>")
+    for sprite in sprites:
+        handleSprite(sprite)
+    print("</Sprites>")
         
 #Parses XML to Python given dom input.
 def parseXML(xml):
-    scripts = dom.getElementsByTagName("scripts")
-    handleScripts(scripts)
+    sprites = dom.getElementsByTagName("sprite")
+    handleSprites(sprites)
 
 parseXML(dom)
