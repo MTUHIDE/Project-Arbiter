@@ -1,6 +1,9 @@
 Errors so far accumulated:
 
 1. Blocks containing other blocks read in <l> tags of those blocks.
-2. The scripts handler seems to be outputting the contents of 2 different script tag pairs given only one script to read.
 3. Blocks whose parameters are other blocks are not being read in yet.
+
+To do:
+1. Read in any more data that will be needed for grading.
+2. Fix the ordering of "blocks", especially blocks whose parameters are other blocks
 
