@@ -21,17 +21,20 @@ def handleBlockType(block):
 def handleVariableBlock(block):
     print("            Variable block: " + block.getAttribute("var"))
 
-#Returns the contents of each block tag
-def handleBlocks(blocks):
-    for block in blocks:
-        if(block.hasAttribute("s")):
-            handleBlockType(block)
-        if(block.hasAttribute("var")):
-            handleVariableBlock(block)
-        l = block.getElementsByTagName("l")
-        if len(l) > 0:
-            for node in l:
-                handleLTagParameters(node)
+#Returns the contents of a block tag
+def handleBlock(block):
+    if(block.hasAttribute("s")):
+        handleBlockType(block)
+    if(block.hasAttribute("var")):
+        handleVariableBlock(block)
+    l = block.getElementsByTagName("l")
+    if len(l) > 0:
+        for text in l:
+            handleLTagParameters(text)
+#Returns the contents of a blocks tag
+def handleBlocks(tag):
+    for block in tag:
+        handleBlock(block)
         
 #Returns text within a tag l
 def handleLTagParameters(l):
