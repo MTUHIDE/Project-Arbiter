@@ -1,9 +1,11 @@
 Errors so far accumulated:
 
 1. Blocks containing other blocks read in <l> tags of those blocks.
-3. Blocks whose parameters are other blocks are not being read in yet.
+2. Blocks whose parameters are other blocks are not being read in yet.
 
 To do:
-1. Read in any more data that will be needed for grading.
-2. Fix the ordering of "blocks", especially blocks whose parameters are other blocks
+1. Fix the ordering of "blocks", especially blocks whose parameters are other blocks
 
+12/4/2018:
+
+Began fixing getElementsByTagName returning children of children

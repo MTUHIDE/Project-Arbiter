@@ -15,11 +15,11 @@ def getNodeText(node):
 
 #Returns a block tag's attribute, aka A block's type
 def handleBlockType(block):
-    print("            Block type: " + block.getAttribute("s"))
+    print("            <block s = " + block.getAttribute("s")+">")
     
 #Returns a variable block's variable name. To be distinguished from regular block types
 def handleVariableBlock(block):
-    print("            Variable block: " + block.getAttribute("var"))
+    print("            <block var =  " + block.getAttribute("var")+">")
 
 #Returns the contents of a block tag
 def handleBlock(block):
@@ -27,23 +27,31 @@ def handleBlock(block):
         handleBlockType(block)
     if(block.hasAttribute("var")):
         handleVariableBlock(block)
-    l = block.getElementsByTagName("l")
-    if len(l) > 0:
-        for text in l:
-            handleLTagParameters(text)
+    ls = block.getElementsByTagName("l")
+    for l in ls:
+        if(not(l.parentNode.isSameNode(block))):
+            ls.remove(l)
+    if len(ls) > 0:
+        for l in ls:
+            handleLTagParameters(l)
 #Returns the contents of a blocks tag
-def handleBlocks(tag):
-    for block in tag:
+def handleBlocks(blocks):
+    for block in blocks:
         handleBlock(block)
         
 #Returns text within a tag l
 def handleLTagParameters(l):
-    print("               Parameter: "+ getNodeText(l))
+    print("               <l> "+ getNodeText(l))
 
 #Returns everything within a "script" tag
 def handleScript(script):
     print("         <Script>")
-    handleBlocks(script.getElementsByTagName("block"))
+    blocks = script.getElementsByTagName("block")
+    for block in blocks:
+        if(not(block.parentNode.isSameNode(script))):
+            blocks.remove(block)
+        
+    handleBlocks(blocks)
     print("         </Script>")
     
 #Returns everything within a "scripts" tag
