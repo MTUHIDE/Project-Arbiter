@@ -27,13 +27,13 @@ def handleBlock(block):
         handleBlockType(block)
     if(block.hasAttribute("var")):
         handleVariableBlock(block)
-    ls = block.getElementsByTagName("l")
-    for l in ls:
-        if(not(l.parentNode.isSameNode(block))):
-            ls.remove(l)
-    if len(ls) > 0:
-        for l in ls:
-            handleLTagParameters(l)
+    children = block.childNodes
+    for child in children:
+        if(child.hasAttributes()):
+            handleBlock(child)
+        else:
+            handleLTagParameters(child)
+    print("            </block>")
 #Returns the contents of a blocks tag
 def handleBlocks(blocks):
     for block in blocks:
@@ -41,16 +41,12 @@ def handleBlocks(blocks):
         
 #Returns text within a tag l
 def handleLTagParameters(l):
-    print("               <l> "+ getNodeText(l))
+    print("               <l> "+ getNodeText(l) + " </l>")
 
 #Returns everything within a "script" tag
 def handleScript(script):
     print("         <Script>")
-    blocks = script.getElementsByTagName("block")
-    for block in blocks:
-        if(not(block.parentNode.isSameNode(script))):
-            blocks.remove(block)
-        
+    blocks = script.childNodes  
     handleBlocks(blocks)
     print("         </Script>")
     
